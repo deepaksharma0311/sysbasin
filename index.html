@@ -518,84 +518,7 @@
     <div class="notification" id="notification"></div>
     
     <script>
-        // Sample car data for demonstration using Synsbasen API format
-        const sampleCars = {
-            'AB12345': {
-                make: 'Volkswagen',
-                model: 'Golf',
-                variant: 'Comfortline',
-                year: '2019',
-                fuel_type: 'Benzin',
-                mileage: '45,000',
-                color: 'Sølv',
-                doors: '5',
-                transmission: 'Manuel',
-                engine_size: '1395',
-                power_hp: '150',
-                power_kw: '110',
-                vin: 'WVWZZZ1KZAW123456',
-                co2_emission: '118',
-                energy_class: 'B',
-                emission_class: 'Euro 6',
-                body_type: 'Stationcar',
-                weight: '1320',
-                seats: '5',
-                status: 'Registreret',
-                first_registration_date: '2019-03-15',
-                last_inspection: '2023-03-10',
-                inspection_valid_until: '2025-03-10'
-            },
-            'CD67890': {
-                make: 'Toyota',
-                model: 'Corolla',
-                variant: 'Hybrid',
-                year: '2020',
-                fuel_type: 'Benzin/El',
-                mileage: '32,000',
-                color: 'Hvid',
-                doors: '4',
-                transmission: 'Automatisk',
-                engine_size: '1798',
-                power_hp: '122',
-                power_kw: '90',
-                vin: 'NMTBB02E20W123456',
-                co2_emission: '89',
-                energy_class: 'A+',
-                emission_class: 'Euro 6d',
-                body_type: 'Sedan',
-                weight: '1395',
-                seats: '5',
-                status: 'Registreret',
-                first_registration_date: '2020-06-22',
-                last_inspection: '2023-06-15',
-                inspection_valid_until: '2025-06-15'
-            },
-            'EF11223': {
-                make: 'BMW',
-                model: '320d',
-                variant: 'Touring',
-                year: '2018',
-                fuel_type: 'Diesel',
-                mileage: '78,000',
-                color: 'Sort',
-                doors: '5',
-                transmission: 'Automatisk',
-                engine_size: '1995',
-                power_hp: '190',
-                power_kw: '140',
-                vin: 'WBAVM11070F123456',
-                co2_emission: '142',
-                energy_class: 'C',
-                emission_class: 'Euro 6d-TEMP',
-                body_type: 'Stationcar',
-                weight: '1665',
-                seats: '5',
-                status: 'Registreret',
-                first_registration_date: '2018-09-11',
-                last_inspection: '2023-09-05',
-                inspection_valid_until: '2024-09-05'
-            }
-        };
+        // Synsbasen API integration demo
         
         function fillPlate(plate) {
             document.getElementById('licensePlate').value = plate;
@@ -607,7 +530,7 @@
             return pattern.test(plate);
         }
         
-        function searchCar() {
+        async function searchCar() {
             const licensePlate = document.getElementById('licensePlate').value.toUpperCase().trim();
             const loading = document.getElementById('loading');
             const result = document.getElementById('carResult');
@@ -629,28 +552,51 @@
             button.disabled = true;
             button.innerHTML = '<span class="button-text">Searching...</span>';
             
-            // Simulate Synsbasen API call
-            setTimeout(() => {
+            try {
+                // Call the test Synsbasen API
+                const response = await fetch('/api/test-synsbasen.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        license_plate: licensePlate
+                    })
+                });
+                
+                const data = await response.json();
+                
                 loading.style.display = 'none';
                 button.disabled = false;
                 button.innerHTML = '<span class="button-text">🔍 Search Car</span>';
                 
-                const carData = sampleCars[licensePlate];
-                
-                if (carData) {
-                    displayCarResult(carData, licensePlate);
-                    showNotification('Car information retrieved from Synsbasen successfully!', 'success');
+                if (data.success) {
+                    displayCarResult(data.data, licensePlate);
+                    showNotification('Car information retrieved from Synsbasen API successfully!', 'success');
                 } else {
-                    showNotification('No vehicle found in Synsbasen database. Try one of the examples!', 'error');
+                    showNotification(data.error || 'No vehicle found in Synsbasen database', 'error');
                 }
-            }, 2000);
+            } catch (error) {
+                loading.style.display = 'none';
+                button.disabled = false;
+                button.innerHTML = '<span class="button-text">🔍 Search Car</span>';
+                showNotification('Error connecting to Synsbasen API: ' + error.message, 'error');
+            }
         }
         
         function displayCarResult(carData, licensePlate) {
             const carInfo = document.getElementById('carInfo');
             const result = document.getElementById('carResult');
             
+            const demoNote = carData.demo_note ? 
+                `<div style="background: #e8f5e8; padding: 10px; border-radius: 8px; margin-bottom: 20px; color: #2d5016; font-size: 0.9rem;">
+                    📊 ${carData.demo_note}
+                </div>` : '';
+            
             carInfo.innerHTML = `
+                ${demoNote}
+                
+                <h4 style="color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Basic Information</h4>
                 <div class="car-detail">
                     <h4>Vehicle</h4>
                     <p>${carData.make} ${carData.model} ${carData.variant || ''}</p>
@@ -661,39 +607,91 @@
                 </div>
                 <div class="car-detail">
                     <h4>License Plate</h4>
-                    <p>${licensePlate}</p>
+                    <p>${carData.license_plate}</p>
                 </div>
                 <div class="car-detail">
                     <h4>Status</h4>
                     <p>${carData.status}</p>
                 </div>
                 <div class="car-detail">
+                    <h4>VIN</h4>
+                    <p>${carData.vin}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Registration Status</h4>
+                    <p>${carData.registration_status}</p>
+                </div>
+                
+                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Technical Specifications</h4>
+                <div class="car-detail">
                     <h4>Fuel Type</h4>
                     <p>${carData.fuel_type}</p>
                 </div>
                 <div class="car-detail">
-                    <h4>Mileage</h4>
-                    <p>${carData.mileage} km</p>
+                    <h4>Engine Size</h4>
+                    <p>${carData.engine_size} cc</p>
                 </div>
                 <div class="car-detail">
-                    <h4>Color</h4>
-                    <p>${carData.color}</p>
+                    <h4>Power</h4>
+                    <p>${carData.power_hp} HP (${carData.power_kw} kW)</p>
                 </div>
                 <div class="car-detail">
                     <h4>Transmission</h4>
                     <p>${carData.transmission}</p>
                 </div>
                 <div class="car-detail">
-                    <h4>Engine</h4>
-                    <p>${carData.engine_size}cc (${carData.power_hp} HP)</p>
+                    <h4>Body Type</h4>
+                    <p>${carData.body_type}</p>
                 </div>
                 <div class="car-detail">
-                    <h4>CO2 Emission</h4>
-                    <p>${carData.co2_emission} g/km (${carData.energy_class})</p>
+                    <h4>Doors</h4>
+                    <p>${carData.doors}</p>
                 </div>
+                <div class="car-detail">
+                    <h4>Seats</h4>
+                    <p>${carData.seats}</p>
+                </div>
+                
+                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #e74c3c; padding-bottom: 5px;">Emission & Environment</h4>
+                <div class="car-detail">
+                    <h4>CO2 Emission</h4>
+                    <p>${carData.co2_emission} g/km</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Energy Class</h4>
+                    <p>${carData.energy_class}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Euro Norm</h4>
+                    <p>${carData.euro_norm}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Particle Filter</h4>
+                    <p>${carData.particle_filter ? 'Yes' : 'No'}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Environmental Zones</h4>
+                    <p>${carData.environmental_zones ? 'Allowed' : 'Not Allowed'}</p>
+                </div>
+                
+                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #f39c12; padding-bottom: 5px;">Weight & Dimensions</h4>
                 <div class="car-detail">
                     <h4>Weight</h4>
                     <p>${carData.weight} kg</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Max Weight</h4>
+                    <p>${carData.max_weight} kg</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Dimensions</h4>
+                    <p>L: ${carData.length}mm × W: ${carData.width}mm × H: ${carData.height}mm</p>
+                </div>
+                
+                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #9b59b6; padding-bottom: 5px;">Inspection & Registration</h4>
+                <div class="car-detail">
+                    <h4>First Registration</h4>
+                    <p>${carData.first_registration_date}</p>
                 </div>
                 <div class="car-detail">
                     <h4>Last Inspection</h4>
@@ -704,12 +702,26 @@
                     <p>${carData.inspection_valid_until}</p>
                 </div>
                 <div class="car-detail">
-                    <h4>VIN</h4>
-                    <p>${carData.vin}</p>
+                    <h4>Inspection Status</h4>
+                    <p>${carData.inspection_status}</p>
                 </div>
                 <div class="car-detail">
-                    <h4>First Registration</h4>
-                    <p>${carData.first_registration_date}</p>
+                    <h4>Owner Changes</h4>
+                    <p>${carData.owner_changes}</p>
+                </div>
+                
+                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #1abc9c; padding-bottom: 5px;">Insurance & Registration</h4>
+                <div class="car-detail">
+                    <h4>Insurance Company</h4>
+                    <p>${carData.insurance_company}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Insurance Valid From</h4>
+                    <p>${carData.insurance_valid_from}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Registration Certificate</h4>
+                    <p>${carData.registration_certificate_number}</p>
                 </div>
             `;
             

@@ -74,28 +74,8 @@ class Car_Sales_Public {
      * License plate lookup AJAX handler
      */
     public function lookup_license_plate() {
-        check_ajax_referer('car_sales_nonce', 'nonce');
-
-        $license_plate = sanitize_text_field($_POST['license_plate']);
-        
-        if (empty($license_plate)) {
-            wp_send_json_error(__('Please enter a license plate', 'car-sales-plugin'));
-        }
-
-        $registry = new Danish_Motor_Registry();
-        $car_data = $registry->lookup_by_license_plate($license_plate);
-
-        if (is_wp_error($car_data)) {
-            wp_send_json_error($car_data->get_error_message());
-        }
-
-        // Also get Synsbasen data
-        $synsbasen_data = $registry->get_synsbasen_data($license_plate);
-        if (!is_wp_error($synsbasen_data)) {
-            $car_data['synsbasen'] = $synsbasen_data;
-        }
-
-        wp_send_json_success($car_data);
+        $synsbasen = new Synsbasen_Integration();
+        $synsbasen->ajax_lookup_license_plate();
     }
 
     /**
