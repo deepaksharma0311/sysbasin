@@ -41,7 +41,7 @@ class Car_Sales_Core {
      * Load the required dependencies
      */
     private function load_dependencies() {
-        require_once CAR_SALES_PLUGIN_PATH . 'includes/class-danish-motor-registry.php';
+        require_once CAR_SALES_PLUGIN_PATH . 'includes/class-synsbasen-integration.php';
         require_once CAR_SALES_PLUGIN_PATH . 'includes/class-bilinfo-integration.php';
         require_once CAR_SALES_PLUGIN_PATH . 'includes/class-user-dashboard.php';
         require_once CAR_SALES_PLUGIN_PATH . 'includes/class-financing-calculator.php';

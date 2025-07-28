@@ -403,13 +403,13 @@
     <div class="container">
         <div class="header">
             <h1>🚗 Car Sales Platform</h1>
-            <p>Find your perfect car with Danish Motor Registry integration</p>
+            <p>Find your perfect car with Synsbasen API integration</p>
         </div>
         
         <div class="search-container">
             <div class="search-title">
                 <h2>Search by License Plate</h2>
-                <p>Enter a Danish license plate to get instant car information</p>
+                <p>Enter a Danish license plate to get comprehensive vehicle data from Synsbasen</p>
             </div>
             
             <div class="license-plate-search">
@@ -438,7 +438,7 @@
             
             <div class="loading" id="loading">
                 <div class="loading-spinner"></div>
-                <p>Searching Danish Motor Registry...</p>
+                <p>Searching Synsbasen database...</p>
             </div>
             
             <div class="car-result" id="carResult">
@@ -480,7 +480,7 @@
             <div class="feature-card">
                 <div class="feature-icon">🔍</div>
                 <h3>Instant Car Lookup</h3>
-                <p>Get comprehensive car information instantly using Danish Motor Registry data. Just enter the license plate!</p>
+                <p>Get comprehensive vehicle information instantly using Synsbasen API data including inspection history, technical details, and emission information.</p>
             </div>
             
             <div class="feature-card">
@@ -518,43 +518,82 @@
     <div class="notification" id="notification"></div>
     
     <script>
-        // Sample car data for demonstration
+        // Sample car data for demonstration using Synsbasen API format
         const sampleCars = {
             'AB12345': {
                 make: 'Volkswagen',
                 model: 'Golf',
+                variant: 'Comfortline',
                 year: '2019',
-                fuel: 'Petrol',
-                mileage: '45,000 km',
-                price: '185,000 DKK',
-                color: 'Silver',
+                fuel_type: 'Benzin',
+                mileage: '45,000',
+                color: 'Sølv',
                 doors: '5',
-                transmission: 'Manual',
-                engine: '1.4 TSI'
+                transmission: 'Manuel',
+                engine_size: '1395',
+                power_hp: '150',
+                power_kw: '110',
+                vin: 'WVWZZZ1KZAW123456',
+                co2_emission: '118',
+                energy_class: 'B',
+                emission_class: 'Euro 6',
+                body_type: 'Stationcar',
+                weight: '1320',
+                seats: '5',
+                status: 'Registreret',
+                first_registration_date: '2019-03-15',
+                last_inspection: '2023-03-10',
+                inspection_valid_until: '2025-03-10'
             },
             'CD67890': {
                 make: 'Toyota',
                 model: 'Corolla',
+                variant: 'Hybrid',
                 year: '2020',
-                fuel: 'Hybrid',
-                mileage: '32,000 km',
-                price: '220,000 DKK',
-                color: 'White',
+                fuel_type: 'Benzin/El',
+                mileage: '32,000',
+                color: 'Hvid',
                 doors: '4',
-                transmission: 'Automatic',
-                engine: '1.8 Hybrid'
+                transmission: 'Automatisk',
+                engine_size: '1798',
+                power_hp: '122',
+                power_kw: '90',
+                vin: 'NMTBB02E20W123456',
+                co2_emission: '89',
+                energy_class: 'A+',
+                emission_class: 'Euro 6d',
+                body_type: 'Sedan',
+                weight: '1395',
+                seats: '5',
+                status: 'Registreret',
+                first_registration_date: '2020-06-22',
+                last_inspection: '2023-06-15',
+                inspection_valid_until: '2025-06-15'
             },
             'EF11223': {
                 make: 'BMW',
                 model: '320d',
+                variant: 'Touring',
                 year: '2018',
-                fuel: 'Diesel',
-                mileage: '78,000 km',
-                price: '295,000 DKK',
-                color: 'Black',
-                doors: '4',
-                transmission: 'Automatic',
-                engine: '2.0d'
+                fuel_type: 'Diesel',
+                mileage: '78,000',
+                color: 'Sort',
+                doors: '5',
+                transmission: 'Automatisk',
+                engine_size: '1995',
+                power_hp: '190',
+                power_kw: '140',
+                vin: 'WBAVM11070F123456',
+                co2_emission: '142',
+                energy_class: 'C',
+                emission_class: 'Euro 6d-TEMP',
+                body_type: 'Stationcar',
+                weight: '1665',
+                seats: '5',
+                status: 'Registreret',
+                first_registration_date: '2018-09-11',
+                last_inspection: '2023-09-05',
+                inspection_valid_until: '2024-09-05'
             }
         };
         
@@ -590,7 +629,7 @@
             button.disabled = true;
             button.innerHTML = '<span class="button-text">Searching...</span>';
             
-            // Simulate API call
+            // Simulate Synsbasen API call
             setTimeout(() => {
                 loading.style.display = 'none';
                 button.disabled = false;
@@ -600,9 +639,9 @@
                 
                 if (carData) {
                     displayCarResult(carData, licensePlate);
-                    showNotification('Car information found successfully!', 'success');
+                    showNotification('Car information retrieved from Synsbasen successfully!', 'success');
                 } else {
-                    showNotification('No car found with this license plate. Try one of the examples!', 'error');
+                    showNotification('No vehicle found in Synsbasen database. Try one of the examples!', 'error');
                 }
             }, 2000);
         }
@@ -614,7 +653,7 @@
             carInfo.innerHTML = `
                 <div class="car-detail">
                     <h4>Vehicle</h4>
-                    <p>${carData.make} ${carData.model}</p>
+                    <p>${carData.make} ${carData.model} ${carData.variant || ''}</p>
                 </div>
                 <div class="car-detail">
                     <h4>Year</h4>
@@ -625,16 +664,16 @@
                     <p>${licensePlate}</p>
                 </div>
                 <div class="car-detail">
+                    <h4>Status</h4>
+                    <p>${carData.status}</p>
+                </div>
+                <div class="car-detail">
                     <h4>Fuel Type</h4>
-                    <p>${carData.fuel}</p>
+                    <p>${carData.fuel_type}</p>
                 </div>
                 <div class="car-detail">
                     <h4>Mileage</h4>
-                    <p>${carData.mileage}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Price</h4>
-                    <p>${carData.price}</p>
+                    <p>${carData.mileage} km</p>
                 </div>
                 <div class="car-detail">
                     <h4>Color</h4>
@@ -646,7 +685,31 @@
                 </div>
                 <div class="car-detail">
                     <h4>Engine</h4>
-                    <p>${carData.engine}</p>
+                    <p>${carData.engine_size}cc (${carData.power_hp} HP)</p>
+                </div>
+                <div class="car-detail">
+                    <h4>CO2 Emission</h4>
+                    <p>${carData.co2_emission} g/km (${carData.energy_class})</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Weight</h4>
+                    <p>${carData.weight} kg</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Last Inspection</h4>
+                    <p>${carData.last_inspection}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>Next Inspection Due</h4>
+                    <p>${carData.inspection_valid_until}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>VIN</h4>
+                    <p>${carData.vin}</p>
+                </div>
+                <div class="car-detail">
+                    <h4>First Registration</h4>
+                    <p>${carData.first_registration_date}</p>
                 </div>
             `;
             

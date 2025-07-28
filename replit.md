@@ -28,8 +28,8 @@ Preferred communication style: Simple, everyday language.
 1. **License Plate Search**: 
    - Danish license plate validation (format: AB12345)
    - AJAX-powered lookup functionality
-   - Integration with external vehicle data services (Bilinfo sync mentioned)
-   - Real-time search results display
+   - Integration with Synsbasen API for comprehensive vehicle data
+   - Real-time search results display with detailed vehicle information
 
 2. **Car Search Interface**:
    - Modern search container with card-based design
@@ -63,7 +63,7 @@ Preferred communication style: Simple, everyday language.
 ## Data Flow
 
 1. **License Plate Lookup Flow**:
-   - User enters Danish license plate → Frontend validation → AJAX request → WordPress backend → External API call → Data processing → Response to frontend → Display results
+   - User enters Danish license plate → Frontend validation → AJAX request → WordPress backend → Synsbasen API call → Data processing → Response to frontend → Display comprehensive vehicle details
 
 2. **Car Approval Flow**:
    - Admin selects cars for approval → AJAX request with nonce → Backend processing → Database update → Success/error response → UI update
@@ -77,7 +77,8 @@ Preferred communication style: Simple, everyday language.
 ### Core Dependencies
 - **WordPress**: Core CMS framework with custom post types and meta fields
 - **jQuery**: Frontend JavaScript framework for DOM manipulation and AJAX
-- **Bilinfo API**: External vehicle data service for license plate lookups and car information
+- **Synsbasen API**: Primary Danish vehicle data service for comprehensive license plate lookups and inspection history
+- **Bilinfo API**: External vehicle marketplace for car approval and synchronization
 
 ### Design Dependencies
 - **CSS Grid & Flexbox**: Modern layout systems for responsive design
@@ -100,3 +101,18 @@ Preferred communication style: Simple, everyday language.
 - **AJAX Optimization**: Asynchronous loading for better user experience
 - **CSS Optimization**: Modular stylesheets for different components
 - **Caching Strategy**: Likely implements WordPress caching hooks for car data
+
+## Recent Changes: Latest modifications with dates
+
+### July 28, 2025 - Synsbasen API Integration
+- **Updated API Integration**: Replaced Danish Motor Registry with Synsbasen API as primary vehicle data source
+- **Enhanced Data Structure**: Modified to support Synsbasen's comprehensive vehicle data format including:
+  - Detailed emission information (CO2, Euro norm, energy class)
+  - Comprehensive inspection history and validity dates
+  - Technical specifications (engine size, power in HP/kW, weight)
+  - Registration status and first registration dates
+  - VIN numbers and detailed vehicle characteristics
+- **Class Restructure**: Renamed `Danish_Motor_Registry` class to `Synsbasen_Integration`
+- **API Endpoint Updates**: Modified to use Synsbasen's search endpoint with proper query structure
+- **Demo Enhancement**: Updated frontend demo to display comprehensive vehicle information from Synsbasen format
+- **Documentation Updates**: Updated project documentation to reflect Synsbasen as primary data source
