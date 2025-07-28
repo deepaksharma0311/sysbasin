@@ -397,6 +397,362 @@
         .example-plates span:hover {
             background: #bdc3c7;
         }
+        
+        /* Step-based Search Design (Caro.dk Style) */
+        .search-steps {
+            margin-bottom: 40px;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active {
+            opacity: 1;
+        }
+        
+        .step.completed {
+            opacity: 0.8;
+            color: #27ae60;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ecf0f1;
+            color: #7f8c8d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active .step-number {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .step.completed .step-number {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .step-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            color: #34495e;
+        }
+        
+        .step-connector {
+            width: 60px;
+            height: 2px;
+            background: #ecf0f1;
+            margin: 0 20px;
+            margin-top: -15px;
+            transition: all 0.3s ease;
+        }
+        
+        .step.completed + .step-connector {
+            background: #27ae60;
+        }
+        
+        .step-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .step-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* License Plate Visual Design */
+        .license-plate-input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .license-plate-visual {
+            perspective: 1000px;
+        }
+        
+        .plate-border {
+            background: white;
+            border: 3px solid #2c3e50;
+            border-radius: 8px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: rotateY(-5deg);
+            transition: all 0.3s ease;
+        }
+        
+        .plate-border:hover {
+            transform: rotateY(0deg);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .plate-flag {
+            font-size: 1.5rem;
+            margin-right: 5px;
+        }
+        
+        .license-plate-input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            letter-spacing: 2px;
+            width: 200px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        .license-plate-input::placeholder {
+            color: #bdc3c7;
+            font-weight: normal;
+        }
+        
+        /* Continue Button */
+        .continue-button {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .continue-button:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+        
+        .continue-button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .button-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .continue-button:hover .button-arrow {
+            transform: translateX(5px);
+        }
+        
+        /* Back Button */
+        .back-button {
+            background: transparent;
+            color: #7f8c8d;
+            border: 1px solid #bdc3c7;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #ecf0f1;
+            color: #34495e;
+        }
+        
+        /* Vehicle Summary Card */
+        .vehicle-summary {
+            text-align: center;
+        }
+        
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .summary-header h3 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .summary-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 1px solid #ecf0f1;
+        }
+        
+        .vehicle-main-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .vehicle-title {
+            text-align: left;
+        }
+        
+        .vehicle-title h4 {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin: 0 0 5px 0;
+        }
+        
+        .vehicle-title p {
+            color: #7f8c8d;
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        .vehicle-year {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .vehicle-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .detail-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .detail-item .label {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .detail-item .value {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h3 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .section-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #ecf0f1;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .step-indicator {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .step-connector {
+                width: 2px;
+                height: 30px;
+                margin: 10px 0;
+            }
+            
+            .license-plate-input {
+                font-size: 1.5rem;
+                width: 150px;
+            }
+            
+            .plate-border {
+                transform: none;
+            }
+            
+            .vehicle-main-info {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .summary-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .contact-form-container {
+                padding: 25px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -406,72 +762,121 @@
             <p>Find your perfect car with Synsbasen API integration</p>
         </div>
         
+        <!-- Step-based License Plate Search (Caro.dk Style) -->
         <div class="search-container">
-            <div class="search-title">
-                <h2>Search by License Plate</h2>
-                <p>Enter a Danish license plate to get comprehensive vehicle data from Synsbasen</p>
-            </div>
-            
-            <div class="license-plate-search">
-                <div class="input-group">
-                    <label for="licensePlate">License Plate Number</label>
-                    <input 
-                        type="text" 
-                        id="licensePlate" 
-                        class="license-plate-input" 
-                        placeholder="AB12345"
-                        maxlength="7"
-                        pattern="[A-Z]{2}[0-9]{5}"
-                    >
+            <div class="search-steps">
+                <div class="step-indicator">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Enter License Plate</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Vehicle Information</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Contact & Inquiry</div>
+                    </div>
                 </div>
-                <button class="search-button" onclick="searchCar()">
-                    <span class="button-text">🔍 Search Car</span>
-                </button>
             </div>
             
-            <div class="example-plates">
-                Try examples: 
-                <span onclick="fillPlate('AB12345')">AB12345</span>
-                <span onclick="fillPlate('CD67890')">CD67890</span>
-                <span onclick="fillPlate('EF11223')">EF11223</span>
-            </div>
-            
-            <div class="loading" id="loading">
-                <div class="loading-spinner"></div>
-                <p>Searching Synsbasen database...</p>
-            </div>
-            
-            <div class="car-result" id="carResult">
-                <h3 style="color: #2c3e50; margin-bottom: 20px;">Car Found! 🎉</h3>
-                <div class="car-info" id="carInfo">
-                    <!-- Car details will be populated here -->
+            <!-- Step 1: License Plate Input -->
+            <div class="step-content active" id="step1">
+                <div class="search-title">
+                    <h2>Find Your Car</h2>
+                    <p>Enter a Danish license plate to get comprehensive vehicle information</p>
                 </div>
                 
-                <div class="contact-form">
-                    <h3>Interested in this car? Get in touch!</h3>
-                    <form id="contactForm" onsubmit="submitContact(event)">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone">
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message (Optional)</label>
-                                <textarea id="message" name="message" placeholder="Any questions or comments about this car..."></textarea>
-                            </div>
+                <div class="license-plate-input-container">
+                    <div class="license-plate-visual">
+                        <div class="plate-border">
+                            <div class="plate-flag">🇩🇰</div>
+                            <input 
+                                type="text" 
+                                id="licensePlate" 
+                                class="license-plate-input" 
+                                placeholder="AB12345"
+                                maxlength="7"
+                                pattern="[A-Z]{2}[0-9]{5}"
+                                oninput="formatLicensePlate(this)"
+                            >
                         </div>
-                        <button type="submit" class="submit-button">
-                            📧 Send Inquiry
-                        </button>
-                    </form>
+                    </div>
+                    
+                    <button class="continue-button" onclick="searchCar()">
+                        <span class="button-text">Continue</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+                </div>
+                
+                <div class="example-plates">
+                    Try examples: 
+                    <span onclick="fillPlate('AB12345')">AB12345</span>
+                    <span onclick="fillPlate('CD67890')">CD67890</span>
+                    <span onclick="fillPlate('EF11223')">EF11223</span>
+                </div>
+            </div>
+            
+            <!-- Step 2: Loading and Vehicle Information -->
+            <div class="step-content" id="step2">
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Searching Synsbasen database...</p>
+                </div>
+                
+                <div class="vehicle-summary" id="vehicleSummary" style="display: none;">
+                    <div class="summary-header">
+                        <h3>Vehicle Found</h3>
+                        <button class="back-button" onclick="goToStep(1)">← Change License Plate</button>
+                    </div>
+                    <div class="summary-card" id="summaryCard">
+                        <!-- Vehicle summary will be populated here -->
+                    </div>
+                    <button class="continue-button" onclick="goToStep(3)">
+                        <span class="button-text">Continue to Contact</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Contact Form -->
+            <div class="step-content" id="step3">
+                <div class="contact-section">
+                    <div class="section-header">
+                        <h3>Get in Touch</h3>
+                        <p>Send an inquiry about this vehicle</p>
+                        <button class="back-button" onclick="goToStep(2)">← Back to Vehicle Info</button>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <form id="contactForm" onsubmit="submitContact(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name">Full Name *</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message (Optional)</label>
+                                    <textarea id="message" name="message" placeholder="Any questions about this vehicle..."></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="submit-button">
+                                <span class="button-text">Send Inquiry</span>
+                                <span class="button-arrow">📧</span>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -520,21 +925,65 @@
     <script>
         // Synsbasen API integration demo
         
+        // Global variables to store current vehicle data
+        let currentVehicleData = null;
+        let currentStep = 1;
+        
         function fillPlate(plate) {
             document.getElementById('licensePlate').value = plate;
             document.getElementById('licensePlate').focus();
         }
         
+        function formatLicensePlate(input) {
+            let value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            
+            // Format as XX##### (2 letters, 5-6 numbers)
+            if (value.length <= 2) {
+                input.value = value;
+            } else if (value.length <= 7) {
+                input.value = value;
+            } else {
+                input.value = value.substring(0, 7);
+            }
+        }
+        
         function validateLicensePlate(plate) {
-            const pattern = /^[A-Z]{2}[0-9]{5}$/;
+            const pattern = /^[A-Z]{2}[0-9]{5,6}$/;
             return pattern.test(plate);
+        }
+        
+        function goToStep(step) {
+            // Hide all step contents
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Update step indicators
+            document.querySelectorAll('.step').forEach(stepEl => {
+                const stepNum = parseInt(stepEl.dataset.step);
+                stepEl.classList.remove('active', 'completed');
+                
+                if (stepNum === step) {
+                    stepEl.classList.add('active');
+                } else if (stepNum < step) {
+                    stepEl.classList.add('completed');
+                }
+            });
+            
+            // Show current step content
+            document.getElementById(`step${step}`).classList.add('active');
+            currentStep = step;
+            
+            // Scroll to top of search container
+            document.querySelector('.search-container').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
         
         async function searchCar() {
             const licensePlate = document.getElementById('licensePlate').value.toUpperCase().trim();
-            const loading = document.getElementById('loading');
-            const result = document.getElementById('carResult');
-            const button = document.querySelector('.search-button');
+            const continueButton = document.querySelector('.continue-button');
             
             if (!licensePlate) {
                 showNotification('Please enter a license plate number', 'error');
@@ -546,11 +995,13 @@
                 return;
             }
             
-            // Show loading
+            // Go to step 2 and show loading
+            goToStep(2);
+            const loading = document.getElementById('loading');
+            const vehicleSummary = document.getElementById('vehicleSummary');
+            
             loading.style.display = 'block';
-            result.classList.remove('show');
-            button.disabled = true;
-            button.innerHTML = '<span class="button-text">Searching...</span>';
+            vehicleSummary.style.display = 'none';
             
             try {
                 // Call the test Synsbasen API
@@ -567,170 +1018,90 @@
                 const data = await response.json();
                 
                 loading.style.display = 'none';
-                button.disabled = false;
-                button.innerHTML = '<span class="button-text">🔍 Search Car</span>';
                 
                 if (data.success) {
-                    displayCarResult(data.data, licensePlate);
-                    showNotification('Car information retrieved from Synsbasen API successfully!', 'success');
+                    currentVehicleData = data.data;
+                    displayVehicleSummary(data.data);
+                    vehicleSummary.style.display = 'block';
+                    showNotification('Vehicle information found!', 'success');
                 } else {
                     showNotification(data.error || 'No vehicle found in Synsbasen database', 'error');
+                    // Go back to step 1 on error
+                    setTimeout(() => goToStep(1), 2000);
                 }
             } catch (error) {
                 loading.style.display = 'none';
-                button.disabled = false;
-                button.innerHTML = '<span class="button-text">🔍 Search Car</span>';
                 showNotification('Error connecting to Synsbasen API: ' + error.message, 'error');
+                // Go back to step 1 on error
+                setTimeout(() => goToStep(1), 2000);
             }
         }
         
-        function displayCarResult(carData, licensePlate) {
-            const carInfo = document.getElementById('carInfo');
-            const result = document.getElementById('carResult');
+        function displayVehicleSummary(carData) {
+            const summaryCard = document.getElementById('summaryCard');
             
             const demoNote = carData.demo_note ? 
-                `<div style="background: #e8f5e8; padding: 10px; border-radius: 8px; margin-bottom: 20px; color: #2d5016; font-size: 0.9rem;">
+                `<div style="background: #e8f5e8; padding: 15px; border-radius: 10px; margin-bottom: 25px; color: #2d5016; font-size: 0.9rem; text-align: center;">
                     📊 ${carData.demo_note}
                 </div>` : '';
             
-            carInfo.innerHTML = `
+            summaryCard.innerHTML = `
                 ${demoNote}
                 
-                <h4 style="color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Basic Information</h4>
-                <div class="car-detail">
-                    <h4>Vehicle</h4>
-                    <p>${carData.make} ${carData.model} ${carData.variant || ''}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Year</h4>
-                    <p>${carData.year}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>License Plate</h4>
-                    <p>${carData.license_plate}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Status</h4>
-                    <p>${carData.status}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>VIN</h4>
-                    <p>${carData.vin}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Registration Status</h4>
-                    <p>${carData.registration_status}</p>
+                <div class="vehicle-main-info">
+                    <div class="vehicle-title">
+                        <h4>${carData.make} ${carData.model}</h4>
+                        <p>${carData.variant || ''} • ${carData.license_plate}</p>
+                    </div>
+                    <div class="vehicle-year">${carData.year}</div>
                 </div>
                 
-                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Technical Specifications</h4>
-                <div class="car-detail">
-                    <h4>Fuel Type</h4>
-                    <p>${carData.fuel_type}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Engine Size</h4>
-                    <p>${carData.engine_size} cc</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Power</h4>
-                    <p>${carData.power_hp} HP (${carData.power_kw} kW)</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Transmission</h4>
-                    <p>${carData.transmission}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Body Type</h4>
-                    <p>${carData.body_type}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Doors</h4>
-                    <p>${carData.doors}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Seats</h4>
-                    <p>${carData.seats}</p>
-                </div>
-                
-                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #e74c3c; padding-bottom: 5px;">Emission & Environment</h4>
-                <div class="car-detail">
-                    <h4>CO2 Emission</h4>
-                    <p>${carData.co2_emission} g/km</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Energy Class</h4>
-                    <p>${carData.energy_class}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Euro Norm</h4>
-                    <p>${carData.euro_norm}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Particle Filter</h4>
-                    <p>${carData.particle_filter ? 'Yes' : 'No'}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Environmental Zones</h4>
-                    <p>${carData.environmental_zones ? 'Allowed' : 'Not Allowed'}</p>
-                </div>
-                
-                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #f39c12; padding-bottom: 5px;">Weight & Dimensions</h4>
-                <div class="car-detail">
-                    <h4>Weight</h4>
-                    <p>${carData.weight} kg</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Max Weight</h4>
-                    <p>${carData.max_weight} kg</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Dimensions</h4>
-                    <p>L: ${carData.length}mm × W: ${carData.width}mm × H: ${carData.height}mm</p>
-                </div>
-                
-                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #9b59b6; padding-bottom: 5px;">Inspection & Registration</h4>
-                <div class="car-detail">
-                    <h4>First Registration</h4>
-                    <p>${carData.first_registration_date}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Last Inspection</h4>
-                    <p>${carData.last_inspection}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Next Inspection Due</h4>
-                    <p>${carData.inspection_valid_until}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Inspection Status</h4>
-                    <p>${carData.inspection_status}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Owner Changes</h4>
-                    <p>${carData.owner_changes}</p>
-                </div>
-                
-                <h4 style="color: #2c3e50; margin: 25px 0 15px 0; border-bottom: 2px solid #1abc9c; padding-bottom: 5px;">Insurance & Registration</h4>
-                <div class="car-detail">
-                    <h4>Insurance Company</h4>
-                    <p>${carData.insurance_company}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Insurance Valid From</h4>
-                    <p>${carData.insurance_valid_from}</p>
-                </div>
-                <div class="car-detail">
-                    <h4>Registration Certificate</h4>
-                    <p>${carData.registration_certificate_number}</p>
+                <div class="vehicle-details-grid">
+                    <div class="detail-item">
+                        <div class="label">Fuel Type</div>
+                        <div class="value">${carData.fuel_type}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Mileage</div>
+                        <div class="value">${carData.mileage} km</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Engine</div>
+                        <div class="value">${carData.engine_size}cc</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Power</div>
+                        <div class="value">${carData.power_hp} HP</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Transmission</div>
+                        <div class="value">${carData.transmission}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">CO2 Emission</div>
+                        <div class="value">${carData.co2_emission} g/km</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Energy Class</div>
+                        <div class="value">${carData.energy_class}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Last Inspection</div>
+                        <div class="value">${carData.last_inspection}</div>
+                    </div>
                 </div>
             `;
-            
-            result.classList.add('show');
-            result.scrollIntoView({ behavior: 'smooth' });
         }
+        
+
         
         function submitContact(event) {
             event.preventDefault();
+            
+            if (!currentVehicleData) {
+                showNotification('Please select a vehicle first', 'error');
+                return;
+            }
             
             const formData = new FormData(event.target);
             const name = formData.get('name');
@@ -738,20 +1109,30 @@
             const phone = formData.get('phone');
             const message = formData.get('message');
             
+            if (!name || !email) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+            
             // Simulate form submission
             const button = event.target.querySelector('.submit-button');
-            const originalText = button.innerHTML;
+            const originalText = button.innerHTML; 
             button.disabled = true;
-            button.innerHTML = 'Sending...';
+            button.innerHTML = '<span class="button-text">Sending...</span>';
             
             setTimeout(() => {
                 button.disabled = false;
                 button.innerHTML = originalText;
                 
-                showNotification('Inquiry sent successfully! The seller will contact you soon.', 'success');
+                showNotification(`Inquiry sent for ${currentVehicleData.make} ${currentVehicleData.model} (${currentVehicleData.license_plate})! We will contact you soon.`, 'success');
                 
-                // Reset form
+                // Reset form and go back to step 1
                 event.target.reset();
+                goToStep(1);
+                
+                // Clear vehicle data
+                currentVehicleData = null;
+                document.getElementById('licensePlate').value = '';
                 
                 // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
